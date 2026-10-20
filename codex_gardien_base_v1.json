@@ -1,0 +1,159 @@
+
+{
+  "format": "codex-gardien",
+  "version": 2,
+  "entries": [
+    {
+      "id": "potion-degats-1",
+      "name": "Potion de dégâts I",
+      "category": "potions",
+      "description": "Potion offensive évoquée dans nos discussions.",
+      "effect": "+3 dégâts pendant 30 secondes (à vérifier).",
+      "ingredients": [
+        "1 rune rouge",
+        "1 rune verte"
+      ],
+      "station": "Laboratoire I (à vérifier)",
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "potion-degats-3",
+      "name": "Potion de dégâts III",
+      "category": "potions",
+      "description": "Version supérieure de la potion de dégâts.",
+      "effect": "+9 dégâts pendant 30 secondes (à vérifier).",
+      "ingredients": [
+        "3 runes rouges",
+        "3 runes vertes",
+        "Cire d'abeille (à confirmer)",
+        "Pépite de cuivre (à confirmer)"
+      ],
+      "station": "Laboratoire (niveau à vérifier)",
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "fromage",
+      "name": "Fromage",
+      "category": "objets",
+      "description": "Objet évoqué lors de nos recherches sur les recettes et l'alchimie.",
+      "obtaining": [
+        "Maison abandonnée (à vérifier)",
+        "Coffre du cimetière (à vérifier)",
+        "Récompense de quête (à vérifier)"
+      ],
+      "craftable": null,
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "hydromel",
+      "name": "Hydromel",
+      "category": "recettes",
+      "description": "Boisson dont nous avions étudié la fabrication et la rentabilité.",
+      "ingredients": [
+        "5 miel",
+        "5 eau",
+        "10 combustible"
+      ],
+      "yield": "5 bouteilles (à vérifier)",
+      "craftingTime": "6 cycles rapportés, durée exacte à vérifier",
+      "station": "Station de brassage (nom à vérifier)",
+      "unlock": "Technologie liée à l'hydromel ou à l'agriculture (à vérifier)",
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "ruche-miel",
+      "name": "Production de ruche",
+      "category": "agriculture",
+      "description": "Production rapportée lors de nos calculs.",
+      "yield": {
+        "miel": "3 à 6 unités estimées",
+        "cire": "1 à 2 unités estimées"
+      },
+      "productionTime": "Environ 8 minutes rapportées",
+      "station": "Ruche",
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "melange-berserker",
+      "name": "Mélange du Berserker I",
+      "category": "alchimie",
+      "description": "Recette évoquée en lien avec le fromage et les points alchimiques.",
+      "ingredients": [
+        "Fromage",
+        "Combinaison de points rouges, verts et bleus (à vérifier)"
+      ],
+      "station": "Station d'alchimie (à vérifier)",
+      "status": "a_verifier",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "points-alchimiques",
+      "name": "Comprendre les points alchimiques",
+      "category": "guides",
+      "description": "Note de recherche pour distinguer les couleurs, les points alchimiques et les points de progression.",
+      "instructions": [
+        "Vérifier les symboles affichés en jeu.",
+        "Ne pas confondre ingrédients et points de progression.",
+        "Confirmer les recettes directement dans Graveyard Keeper 2."
+      ],
+      "status": "a_completer",
+      "source": "Anciennes discussions",
+      "completed": false
+    },
+    {
+      "id": "premier-combat-zombie",
+      "name": "Préparer le premier combat de zombie",
+      "category": "guides",
+      "description": "Guide personnel basé sur notre discussion concernant les remparts, les armes et les potions.",
+      "recommendations": [
+        "Vérifier les améliorations des armes.",
+        "Vérifier le niveau des remparts.",
+        "Contrôler les effets des potions de dégâts.",
+        "Préparer les ressources avant le combat."
+      ],
+      "status": "a_completer",
+      "source": "Anciennes discussions",
+      "completed": false
+    }
+  ],
+  "notes": [
+    {
+      "id": "fiabilite",
+      "title": "Fiabilité des données",
+      "text": "Les recettes et valeurs marquées à vérifier proviennent de discussions antérieures. Confirmer chaque donnée dans Graveyard Keeper 2 avant de la considérer comme exacte. Ne pas mélanger les données du premier jeu et de sa suite."
+    }
+  ],
+  "goals": [
+    {
+      "id": "verifier-potions",
+      "text": "Vérifier les potions de dégâts I et III",
+      "done": false
+    },
+    {
+      "id": "verifier-hydromel",
+      "text": "Confirmer la recette et le temps de fabrication de l'hydromel",
+      "done": false
+    },
+    {
+      "id": "verifier-ruches",
+      "text": "Confirmer les rendements et le temps de production des ruches",
+      "done": false
+    },
+    {
+      "id": "enrichir-codex",
+      "text": "Ajouter les objets, recettes, technologies et stations vérifiés",
+      "done": false
+    }
+  ]
+}
