@@ -5,352 +5,182 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#171510">
-<meta name="description" content="Codex personnel de Graveyard Keeper 2 : objets, recettes, potions, technologies, zombies et progression.">
-<title>Le Codex du Gardien</title>
-
+<title>Le Codex du Gardien | GK2</title>
 <style>
-:root {
-  color-scheme: dark;
-  --bg: #171510;
-  --panel: #211e18;
-  --panel2: #29251e;
-  --line: #474032;
-  --gold: #d0ae70;
-  --text: #eee7d8;
-  --muted: #aaa18e;
-  --green: #91b88b;
-  --red: #d28b78;
-  --radius: 15px;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background:
-    radial-gradient(ellipse at top, #332a1b 0%, transparent 50%),
-    var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.55;
-}
-button, input, textarea, select { font: inherit; }
-button {
-  cursor: pointer;
-  border: 1px solid var(--line);
-  background: var(--panel2);
-  color: var(--text);
-  padding: 10px 13px;
-  border-radius: 10px;
-}
-button:active { transform: scale(.98); }
-button.primary {
-  background: var(--gold);
-  color: #21190e;
-  border-color: var(--gold);
-  font-weight: 750;
-}
-button.danger { color: #f0a294; }
-button:disabled { opacity: .45; cursor: default; }
-input, textarea, select {
-  width: 100%;
-  color: var(--text);
-  background: #15130f;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  outline: none;
-}
-input:focus, textarea:focus, select:focus {
-  border-color: var(--gold);
-}
-textarea { resize: vertical; min-height: 90px; }
-a { color: var(--gold); }
-header {
-  padding: 27px 18px 20px;
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-.eyebrow {
-  color: var(--gold);
-  letter-spacing: 3px;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-h1 {
-  font-family: Georgia, serif;
-  font-size: clamp(28px, 7vw, 43px);
-  margin: 8px 0 4px;
-  color: #e8d4a9;
-}
-.subtitle { color: var(--muted); margin: 0 auto; max-width: 500px; }
-main {
-  max-width: 920px;
-  padding: 18px 14px 110px;
-  margin: auto;
-}
-h2, h3 { font-family: Georgia, serif; }
-h2 { color: var(--gold); font-size: 22px; margin: 8px 0 14px; }
-h3 { margin: 0 0 6px; font-size: 18px; }
-.muted { color: var(--muted); font-size: 13px; }
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 9px;
-  margin-bottom: 20px;
-}
-.stat {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px 8px;
-  text-align: center;
-}
-.stat strong { display: block; color: var(--gold); font-size: 24px; }
-.stat span { font-size: 11px; color: var(--muted); }
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 15px;
-}
-.section { display: none; }
-.section.active { display: block; }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
-  gap: 12px;
-}
-.category-card {
-  text-align: left;
-  width: 100%;
-  min-height: 115px;
-  padding: 16px;
-  background: var(--panel);
-}
-.category-card .emoji { font-size: 25px; display: block; margin-bottom: 6px; }
-.category-card strong { display: block; color: var(--gold); }
-.category-card small { color: var(--muted); }
-.toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.toolbar > * { flex: 1 1 140px; }
-.entry {
-  padding: 15px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #1c1914;
-  margin-bottom: 10px;
-}
-.entry-top { display: flex; align-items: flex-start; gap: 10px; }
-.entry-main { flex: 1; min-width: 0; }
-.entry p { margin: 7px 0; overflow-wrap: anywhere; }
-.entry-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-.entry-actions button { font-size: 12px; padding: 8px 10px; }
-.badge {
-  display: inline-block;
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  background: #3b3427;
-  color: #e8d4a9;
-  margin: 3px 4px 3px 0;
-}
-.badge.ok { background: #273b29; color: #a7d4a2; }
-.badge.warn { background: #422d25; color: #efb09a; }
-.progress-track {
-  height: 8px;
-  background: #100f0c;
-  border-radius: 9px;
-  overflow: hidden;
-  margin: 10px 0;
-}
-.progress-fill {
-  height: 100%;
-  width: 0;
-  background: var(--green);
-  transition: width .2s;
-}
-label { display: block; font-size: 13px; color: var(--muted); margin: 11px 0 5px; }
-.form-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
-.form-actions button { flex: 1; }
-.check-row {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  margin: 12px 0;
-}
-.check-row input { width: auto; margin-top: 5px; accent-color: var(--gold); }
-.source-link { overflow-wrap: anywhere; font-size: 13px; }
-.empty { padding: 24px 10px; text-align: center; color: var(--muted); }
-.bottom-nav {
-  position: fixed;
-  z-index: 5;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 8px 6px max(8px, env(safe-area-inset-bottom));
-  background: rgba(23,21,16,.97);
-  border-top: 1px solid var(--line);
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-}
-.bottom-nav button {
-  flex: 1;
-  max-width: 125px;
-  padding: 8px 2px;
-  background: transparent;
-  border-color: transparent;
-  font-size: 11px;
-}
-.bottom-nav button.active {
-  color: var(--gold);
-  background: var(--panel2);
-}
-.bottom-nav span { display: block; font-size: 19px; }
-dialog {
-  width: min(92%, 600px);
-  max-height: 85vh;
-  overflow: auto;
-  color: var(--text);
-  background: var(--panel);
-  border: 1px solid var(--gold);
-  border-radius: 16px;
-  padding: 20px;
-}
-dialog::backdrop { background: rgba(0,0,0,.78); }
-.footer-note { text-align: center; color: var(--muted); font-size: 11px; margin-top: 22px; }
-hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0; }
-@media(min-width:650px) {
-  main { padding-top: 24px; }
-  .bottom-nav { gap: 14px; }
-  .bottom-nav button { font-size: 13px; }
-}
+:root{color-scheme:dark;--bg:#171510;--panel:#242018;--panel2:#30291f;--line:#4b4030;--gold:#d4b276;--text:#f0e8d8;--muted:#b1a58e;--green:#9ac391;--red:#df9785}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#392b1c,transparent 50%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+header{text-align:center;padding:25px 16px 20px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:Georgia,serif}
+h1{font-size:clamp(29px,7vw,43px);color:#ead5a8;margin:8px 0}
+h2{font-size:23px;color:var(--gold);margin:8px 0 14px}
+h3{margin:0 0 6px;font-size:18px}
+p{margin:8px 0}
+.subtitle,.muted{color:var(--muted)}
+.muted{font-size:13px}
+main{max-width:950px;margin:auto;padding:18px 13px 105px}
+.section{display:none}.section.active{display:block}
+.panel,.entry,.stat,.category{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.stat{text-align:center;padding:12px 4px;margin:0}
+.stat strong{display:block;font-size:23px;color:var(--gold)}
+.stat span{font-size:11px;color:var(--muted)}
+input,select,textarea{font:inherit;width:100%;background:#15130f;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:12px}
+label{display:block;color:var(--muted);font-size:13px;margin:12px 0 5px}
+textarea{min-height:90px}
+button{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line);padding:10px 12px;border-radius:9px;cursor:pointer}
+button.primary{background:var(--gold);color:#21190e;font-weight:700;border-color:var(--gold)}
+button.danger{color:var(--red)}
+button:active{transform:scale(.98)}
+a{color:var(--gold);overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px}
+.category{width:100%;text-align:left;margin:0;min-height:115px}
+.category strong{display:block;color:var(--gold)}
+.category .emoji{font-size:25px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.toolbar>*{flex:1 1 140px}
+.badge{display:inline-block;background:#403626;color:#ead7ad;border-radius:20px;padding:3px 8px;font-size:11px;margin:3px 4px 3px 0}
+.badge.ok{background:#293b29;color:#b3d9a9}
+.badge.warn{background:#432e25;color:#f0b19c}
+.entry{margin-bottom:10px}
+.entry p{overflow-wrap:anywhere}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.actions button{font-size:12px}
+.track{height:8px;background:#0f0e0b;border-radius:9px;overflow:hidden;margin:10px 0}
+.fill{height:100%;width:0;background:var(--green)}
+.check{display:flex;gap:10px;align-items:flex-start;margin:12px 0}
+.check input{width:auto;margin-top:5px;accent-color:var(--gold)}
+.bottom{position:fixed;z-index:5;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:2px;background:rgba(23,21,16,.97);border-top:1px solid var(--line);padding:7px 4px max(7px,env(safe-area-inset-bottom))}
+.bottom button{flex:1;max-width:140px;border-color:transparent;background:transparent;font-size:11px;padding:7px 1px}
+.bottom button.active{color:var(--gold);background:var(--panel2)}
+.bottom span{display:block;font-size:18px}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--gold);border-radius:15px;width:min(92%,580px);max-height:85vh;overflow:auto;padding:20px}
+dialog::backdrop{background:#000b}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:25px}
+@media(min-width:650px){main{padding-top:24px}.bottom button{font-size:13px}}
 </style>
 </head>
-
 <body>
 <header>
   <div class="eyebrow">Archives interdites · Édition personnelle</div>
   <h1>☠ Le Codex du Gardien</h1>
-  <p class="subtitle">Objets, recettes, technologies et autres façons de mourir moins bêtement.</p>
+  <p class="subtitle">Un inventaire des recettes, des ressources et des secrets du cimetière.</p>
 </header>
 
 <main>
-  <section id="home" class="section active">
-    <div class="stats">
-      <div class="stat"><strong id="statEntries">0</strong><span>Fiches personnelles</span></div>
-      <div class="stat"><strong id="statDone">0</strong><span>Confirmées</span></div>
-      <div class="stat"><strong id="statNotes">0</strong><span>Notes</span></div>
-    </div>
+<section id="home" class="section active">
+  <div class="stats">
+    <div class="stat"><strong id="countEntries">0</strong><span>Fiches</span></div>
+    <div class="stat"><strong id="countDone">0</strong><span>Maîtrisées</span></div>
+    <div class="stat"><strong id="countNotes">0</strong><span>Notes</span></div>
+  </div>
+  <div class="panel">
+    <h2>📜 Journal du Gardien</h2>
+    <p class="muted" id="progressText">Ton aventure commence ici.</p>
+    <div class="track"><div class="fill" id="progressFill"></div></div>
+    <p class="muted">Le suivi est personnel et ne lit pas directement ta sauvegarde de jeu.</p>
+  </div>
+  <h2>Explorer les archives</h2>
+  <div class="grid" id="categories"></div>
+  <div class="panel" style="margin-top:15px">
+    <h2>📚 Bases de données externes</h2>
+    <p class="muted">Les liens ouvrent les catalogues complets. Les données externes ne sont pas automatiquement téléchargées dans le Codex.</p>
+    <p><a href="https://graveyardkeeper-2.wiki/fr/items" target="_blank" rel="noopener">🪵 Catalogue des objets · 656 fiches annoncées ↗</a></p>
+    <p><a href="https://graveyardkeeper-2.wiki/fr/recipes" target="_blank" rel="noopener">⚒️ Catalogue des recettes · 585 fiches annoncées ↗</a></p>
+    <p><a href="https://graveyardkeeper-2.wiki/fr/workstations" target="_blank" rel="noopener">🏭 Ateliers et structures · 85 fiches annoncées ↗</a></p>
+    <p><a href="https://graveyardkeeper-2.wiki/fr/technologies" target="_blank" rel="noopener">🔬 Technologies · 187 fiches annoncées ↗</a></p>
+    <p><a href="https://graveyardkeeper2guides.wiki/fr/" target="_blank" rel="noopener">🗺️ Guide français : carte, zombies, alchimie, quêtes ↗</a></p>
+  </div>
+</section>
 
-    <div class="panel">
-      <h2>📜 Journal de progression</h2>
-      <div class="muted" id="progressText">Aucune fiche confirmée pour le moment.</div>
-      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
-      <p class="muted">La progression concerne les fiches que tu ajoutes au Codex, pas la progression automatique de ta sauvegarde de jeu.</p>
-    </div>
+<section id="catalog" class="section">
+  <h2 id="catalogTitle">📚 Catalogue intégré</h2>
+  <p class="muted">Recherche dans les fiches locales, y compris les exemples sourcés ci-dessous.</p>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Nom, ingrédient, atelier…">
+    <select id="categoryFilter" aria-label="Catégorie"></select>
+  </div>
+  <div class="toolbar">
+    <select id="statusFilter" aria-label="État">
+      <option value="">Tous les états</option>
+      <option value="todo">À vérifier</option>
+      <option value="community">Source communautaire</option>
+      <option value="official">Source officielle</option>
+      <option value="done">Vérifié en jeu</option>
+    </select>
+    <button class="primary" id="addBtn">＋ Ajouter une fiche</button>
+  </div>
+  <p class="muted" id="catalogCount"></p>
+  <div id="entries"></div>
+</section>
 
-    <h2>Explorer les archives</h2>
-    <div id="categoryGrid" class="grid"></div>
+<section id="progress" class="section">
+  <h2>🗺️ Progression personnelle</h2>
+  <div class="panel">
+    <p class="muted">Ajoute tes objectifs et coche-les au fil de ton aventure.</p>
+    <div id="goals"></div>
+    <form id="goalForm">
+      <label for="goalInput">Nouvel objectif</label>
+      <input id="goalInput" maxlength="160" placeholder="Ex. : vérifier la recette en jeu">
+      <div class="actions"><button class="primary" type="submit">Ajouter</button></div>
+    </form>
+  </div>
+  <div class="panel">
+    <h3>État du catalogue</h3>
+    <p id="progressDetails" class="muted"></p>
+    <button id="goCatalog">Voir les fiches</button>
+  </div>
+</section>
 
-    <div class="panel" style="margin-top:16px">
-      <h2>🕯 Accès aux sources</h2>
-      <p class="muted">Consulte les bases externes pour rechercher des données détaillées. Elles ne sont pas importées automatiquement dans cette application.</p>
-      <p><a href="https://graveyardkeeper-2.wiki/fr" target="_blank" rel="noopener noreferrer">Ouvrir le wiki et sa base de données française ↗</a></p>
-      <p><a href="https://graveyardkeeper2guides.wiki/fr/" target="_blank" rel="noopener noreferrer">Ouvrir le guide du Gardien ↗</a></p>
-      <p><a href="https://graveyardkeeper2.io/crafting/" target="_blank" rel="noopener noreferrer">Consulter les recettes et l'artisanat ↗</a></p>
-    </div>
-  </section>
+<section id="notes" class="section">
+  <h2>✒️ Carnet du Gardien</h2>
+  <div class="panel">
+    <label for="noteTitle">Titre</label>
+    <input id="noteTitle" maxlength="100" placeholder="Ex. : Préparation du combat">
+    <label for="noteBody">Notes et observations</label>
+    <textarea id="noteBody" maxlength="10000" placeholder="Tes découvertes, tests et hypothèses…"></textarea>
+    <div class="actions"><button class="primary" id="saveNote">Enregistrer</button><button id="cancelNote" hidden>Annuler la modification</button></div>
+  </div>
+  <div id="notesList"></div>
+</section>
 
-  <section id="catalog" class="section">
-    <h2 id="catalogTitle">📚 Catalogue</h2>
-    <p class="muted">Tes fiches personnelles, classées par catégorie. Les entrées ne sont pas des données officielles du jeu.</p>
-    <div class="toolbar">
-      <input id="searchInput" type="search" placeholder="Rechercher un nom, ingrédient, effet…">
-      <select id="filterCategory" aria-label="Filtrer par catégorie"></select>
-    </div>
-    <div class="toolbar">
-      <select id="filterStatus" aria-label="Filtrer par état">
-        <option value="">Tous les états</option>
-        <option value="todo">À découvrir</option>
-        <option value="done">Confirmé en jeu</option>
-      </select>
-      <button class="primary" id="newEntryBtn">＋ Nouvelle fiche</button>
-    </div>
-    <div id="entryList"></div>
-  </section>
+<section id="sources" class="section">
+  <h2>🔎 Sources et fiabilité</h2>
+  <div class="panel">
+    <p><span class="badge warn">À vérifier</span> Information incertaine ou hypothèse.</p>
+    <p><span class="badge">Source communautaire</span> Donnée relevée dans un wiki ou un guide de fans.</p>
+    <p><span class="badge">Source officielle</span> Information issue d'une source officielle du jeu.</p>
+    <p><span class="badge ok">Vérifié en jeu</span> Information que tu as confirmée dans ta partie.</p>
+    <hr>
+    <p class="muted">Le wiki de données précise que ses fiches sont extraites des fichiers du jeu et que leurs effets, sources et conditions peuvent être incomplets. Les exemples importés ici sont donc marqués comme communautaires, pas comme officiellement vérifiés.</p>
+  </div>
+  <div id="sourceCards"></div>
+</section>
 
-  <section id="progress" class="section">
-    <h2>🗺 Mon aventure</h2>
-    <div class="panel">
-      <h3>Objectifs personnels</h3>
-      <p class="muted">Coche les étapes que tu veux suivre. Ces objectifs sont indépendants des conditions réelles du jeu.</p>
-      <div id="goalList"></div>
-      <form id="goalForm">
-        <label for="goalInput">Ajouter un objectif</label>
-        <input id="goalInput" maxlength="160" placeholder="Ex. : vérifier une recette en jeu">
-        <div class="form-actions"><button class="primary" type="submit">Ajouter l'objectif</button></div>
-      </form>
-    </div>
-    <div class="panel">
-      <h3>Suivi des fiches</h3>
-      <p id="progressDetails" class="muted"></p>
-      <button id="openCatalogBtn">Ouvrir le catalogue</button>
-    </div>
-  </section>
-
-  <section id="notes" class="section">
-    <h2>✒ Carnet du Gardien</h2>
-    <div class="panel">
-      <label for="noteTitle">Titre de la note</label>
-      <input id="noteTitle" maxlength="100" placeholder="Ex. : À vérifier au prochain combat">
-      <label for="noteText">Tes observations</label>
-      <textarea id="noteText" maxlength="10000" placeholder="Écris tes découvertes, tes tests et tes hypothèses…"></textarea>
-      <div class="form-actions"><button class="primary" id="saveNoteBtn">Enregistrer la note</button></div>
-    </div>
-    <div id="noteList"></div>
-  </section>
-
-  <section id="sources" class="section">
-    <h2>🔎 Bibliothèque des sources</h2>
-    <p class="muted">Les sources ci-dessous sont indépendantes. Les données communautaires peuvent être incomplètes ou non testées en jeu.</p>
-    <div id="sourceList"></div>
-    <div class="panel">
-      <h3>Comment noter la fiabilité ?</h3>
-      <p><span class="badge ok">Vérifié en jeu</span> Tu as personnellement confirmé l'information.</p>
-      <p><span class="badge">Source communautaire</span> Information consultée dans un guide ou un wiki.</p>
-      <p><span class="badge warn">À vérifier</span> Information incertaine ou hypothèse personnelle.</p>
-      <p class="muted">Le statut est un repère personnel. Il ne certifie pas que la source externe est officielle.</p>
-    </div>
-  </section>
-
-  <section id="settings" class="section">
-    <h2>⚙ Archives et sauvegarde</h2>
-    <div class="panel">
-      <h3>Exporter mes données</h3>
-      <p class="muted">Crée un fichier JSON contenant tes fiches, tes notes, tes objectifs et leur état.</p>
-      <button class="primary" id="exportBtn">Exporter le Codex</button>
-      <hr>
-      <h3>Importer une sauvegarde</h3>
-      <p class="muted">L'import remplace les données actuellement enregistrées dans ce navigateur.</p>
-      <label for="importFile">Fichier JSON du Codex</label>
-      <input id="importFile" type="file" accept=".json,application/json">
-      <button id="importBtn" style="margin-top:10px">Importer le fichier</button>
-      <hr>
-      <h3>Réinitialiser</h3>
-      <p class="muted">Supprime les données locales du Codex sur cet appareil.</p>
-      <button class="danger" id="resetBtn">Effacer mes données</button>
-    </div>
-    <div class="panel">
-      <h3>À propos</h3>
-      <p>Le Codex est un outil personnel non officiel. Il n'est pas affilié à Lazy Bear Games ou tinyBuild.</p>
-      <p class="muted">Les données sont stockées dans le navigateur de cet appareil. Pour les transférer vers un autre appareil, exporte puis importe le fichier JSON.</p>
-    </div>
-  </section>
-
-  <p class="footer-note">Fabriqué pour le Gardien, ses zombies et ses longues journées de travail. ☠</p>
+<section id="settings" class="section">
+  <h2>⚙️ Sauvegarde du Codex</h2>
+  <div class="panel">
+    <h3>Exporter mes données</h3>
+    <p class="muted">Télécharge les fiches, notes et objectifs dans un fichier JSON.</p>
+    <button class="primary" id="exportBtn">Exporter</button>
+    <hr>
+    <h3>Importer une sauvegarde</h3>
+    <input type="file" id="importFile" accept=".json,application/json">
+    <button id="importBtn" style="margin-top:10px">Importer le fichier</button>
+    <hr>
+    <h3>Réinitialiser</h3>
+    <button class="danger" id="resetBtn">Effacer mes données personnelles</button>
+  </div>
+  <div class="panel">
+    <p class="muted">Les données sont conservées localement dans le navigateur. Elles ne se synchronisent pas automatiquement entre appareils. Le site est un projet de fans non officiel.</p>
+  </div>
+</section>
+<p class="footer">Que les morts travaillent et que les vivants remplissent les formulaires. ☠</p>
 </main>
 
-<nav class="bottom-nav" aria-label="Navigation principale">
+<nav class="bottom" aria-label="Navigation">
   <button data-page="home" class="active"><span>🏚️</span>Accueil</button>
   <button data-page="catalog"><span>📚</span>Catalogue</button>
   <button data-page="progress"><span>🗺️</span>Progression</button>
@@ -359,601 +189,357 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0; }
   <button data-page="settings"><span>⚙️</span>Options</button>
 </nav>
 
-<dialog id="entryDialog">
-  <h2 id="dialogTitle">Nouvelle fiche</h2>
+<dialog id="editDialog">
+  <h2 id="dialogTitle">Ajouter une fiche</h2>
   <form id="entryForm">
-    <input id="entryId" type="hidden">
-
-    <label for="entryName">Nom de la fiche *</label>
-    <input id="entryName" required maxlength="150" placeholder="Nom de l'objet, recette ou technologie">
-
-    <label for="entryCategory">Catégorie *</label>
-    <select id="entryCategory" required></select>
-
+    <input type="hidden" id="entryId">
+    <label for="entryName">Nom *</label>
+    <input id="entryName" required maxlength="150">
+    <label for="entryCategory">Catégorie</label>
+    <select id="entryCategory"></select>
     <label for="entryDescription">Description et utilité</label>
-    <textarea id="entryDescription" maxlength="5000" placeholder="À quoi sert cet élément ?"></textarea>
-
-    <label for="entryIngredients">Ingrédients, coûts ou prérequis</label>
-    <textarea id="entryIngredients" maxlength="3000" placeholder="N'indique que les informations que tu connais."></textarea>
-
+    <textarea id="entryDescription" maxlength="4000"></textarea>
+    <label for="entryIngredients">Ingrédients et quantités</label>
+    <textarea id="entryIngredients" maxlength="3000" placeholder="Ex. : 1 Hydromel, 2 Urnes en Terre Cuite, 20 Combustible"></textarea>
     <label for="entryStation">Atelier ou lieu</label>
-    <input id="entryStation" maxlength="200" placeholder="Atelier, zone, personnage…">
-
-    <label for="entryObtaining">Obtention et déblocage</label>
-    <textarea id="entryObtaining" maxlength="3000" placeholder="Comment l'obtenir ou le débloquer ?"></textarea>
-
-    <label for="entryStatus">Fiabilité de l'information</label>
+    <input id="entryStation" maxlength="200">
+    <label for="entryObtaining">Obtention, prérequis et durée</label>
+    <textarea id="entryObtaining" maxlength="3000"></textarea>
+    <label for="entryStatus">Fiabilité</label>
     <select id="entryStatus">
       <option value="todo">À vérifier</option>
       <option value="community">Source communautaire</option>
       <option value="official">Source officielle</option>
       <option value="done">Vérifié en jeu</option>
     </select>
-
-    <label for="entrySource">Lien de la source</label>
+    <label for="entrySource">Lien source</label>
     <input id="entrySource" type="url" maxlength="1000" placeholder="https://…">
-
-    <label class="check-row">
-      <input id="entryCompleted" type="checkbox">
-      <span>J'ai terminé ou maîtrisé cette fiche dans ma progression personnelle.</span>
-    </label>
-
-    <div class="form-actions">
-      <button class="primary" type="submit">Enregistrer</button>
-      <button type="button" id="cancelEntryBtn">Annuler</button>
-    </div>
+    <label class="check"><input id="entryCompleted" type="checkbox"><span>Cette fiche est maîtrisée dans ma partie.</span></label>
+    <div class="actions"><button class="primary" type="submit">Enregistrer</button><button type="button" id="cancelEdit">Annuler</button></div>
   </form>
-</dialog>
-
-<dialog id="detailDialog">
-  <div id="detailContent"></div>
-  <div class="form-actions"><button id="closeDetailBtn">Fermer</button></div>
 </dialog>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
 
-  const STORAGE_KEY = "codex-gardien-gk2-v2";
+const KEY = "codex-gardien-gk2-v3";
+const SOURCE_ITEMS = "https://graveyardkeeper-2.wiki/fr/items";
+const SOURCE_RECIPES = "https://graveyardkeeper-2.wiki/fr/recipes";
+const SOURCE_STATIONS = "https://graveyardkeeper-2.wiki/fr/workstations";
+const SOURCE_TECH = "https://graveyardkeeper-2.wiki/fr/technologies";
+const GUIDE = "https://graveyardkeeper2guides.wiki/fr/";
 
-  const CATEGORIES = [
-    { id: "objects", name: "Objets et matériaux", icon: "🪵", description: "Ressources, outils, armes et objets." },
-    { id: "recipes", name: "Recettes et artisanat", icon: "⚒️", description: "Ingrédients, ateliers et fabrications." },
-    { id: "potions", name: "Alchimie et potions", icon: "⚗️", description: "Effets, ingrédients et préparations." },
-    { id: "technology", name: "Technologies et talents", icon: "🔬", description: "Recherche, points et déblocages." },
-    { id: "zombies", name: "Zombies et cimetière", icon: "🧟", description: "Autopsie, sépultures et automatisation." },
-    { id: "combat", name: "Combat et équipement", icon: "🗡️", description: "Armes, défense et préparatifs." },
-    { id: "quests", name: "Quêtes et personnages", icon: "📜", description: "Habitants, objectifs et récompenses." },
-    { id: "locations", name: "Lieux et carte", icon: "🗺️", description: "Zones, ressources et points d'intérêt." },
-    { id: "farming", name: "Agriculture et cuisine", icon: "🌾", description: "Cultures, pêche, nourriture et élevage." },
-    { id: "other", name: "Autres notes", icon: "🕯️", description: "Tout le reste des archives." }
-  ];
+const CATEGORIES = [
+  {id:"objects",name:"Objets et matériaux",icon:"🪵"},
+  {id:"recipes",name:"Recettes et artisanat",icon:"⚒️"},
+  {id:"potions",name:"Alchimie et potions",icon:"⚗️"},
+  {id:"technology",name:"Technologies et talents",icon:"🔬"},
+  {id:"stations",name:"Ateliers et structures",icon:"🏭"},
+  {id:"zombies",name:"Zombies et cimetière",icon:"🧟"},
+  {id:"combat",name:"Combat et équipement",icon:"🗡️"},
+  {id:"quests",name:"Quêtes et personnages",icon:"📜"},
+  {id:"locations",name:"Lieux et carte",icon:"🗺️"},
+  {id:"farming",name:"Agriculture et cuisine",icon:"🌾"},
+  {id:"other",name:"Autres notes",icon:"🕯️"}
+];
 
-  const SOURCES = [
-    {
-      name: "Wiki français et base de données",
-      description: "Objets, recettes, ateliers et technologies. Les fiches extraites des fichiers du jeu peuvent ne pas être vérifiées en partie.",
-      url: "https://graveyardkeeper-2.wiki/fr"
-    },
-    {
-      name: "Guide du Gardien en français",
-      description: "Catalogue, technologies, talents, marchands, quêtes et repères de carte.",
-      url: "https://graveyardkeeper2guides.wiki/fr/"
-    },
-    {
-      name: "Recettes et artisanat",
-      description: "Référence externe pour consulter les recettes et leurs prérequis.",
-      url: "https://graveyardkeeper2.io/crafting/"
-    },
-    {
-      name: "Technologies et progression",
-      description: "Informations communautaires sur l'arbre technologique et ses déblocages.",
-      url: "https://graveyardkeeper2.io/mechanics/technology/"
-    }
-  ];
+const SOURCES = [
+  {name:"Wiki français : objets",url:SOURCE_ITEMS,desc:"Catalogue communautaire d'objets et matériaux."},
+  {name:"Wiki français : recettes",url:SOURCE_RECIPES,desc:"Ingrédients, ateliers et conditions de fabrication répertoriés."},
+  {name:"Wiki français : ateliers",url:SOURCE_STATIONS,desc:"Ateliers, bâtiments et structures."},
+  {name:"Wiki français : technologies",url:SOURCE_TECH,desc:"Technologies, prérequis et déblocages."},
+  {name:"Guide français",url:GUIDE,desc:"Carte, progression, zombies, personnages, alchimie et autres mécaniques."}
+];
 
-  const DEFAULT_GOALS = [
-    { id: "g1", text: "Vérifier les premières recettes dans le jeu", done: false },
-    { id: "g2", text: "Noter les matériaux importants", done: false },
-    { id: "g3", text: "Documenter les technologies débloquées", done: false },
-    { id: "g4", text: "Vérifier les effets des potions", done: false }
-  ];
+// Exemples relevés dans le catalogue communautaire des recettes.
+// Ils sont volontairement marqués "Source communautaire".
+// "Ticks" est conservé tel qu'affiché par la source, sans conversion en minutes.
+const SEED = [
+  {name:"Abécédaire",category:"recipes",ingredients:"1 Carnet de Notes Vierge Broché, 1 Encre, 1 Histoire (bronze)",station:"Bureau",obtaining:"Maîtrise indiquée : Écriture de livres. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir d’hydromel",category:"recipes",ingredients:"1 Hydromel, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"Maîtrise indiquée : Anatomie. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir de bière",category:"recipes",ingredients:"1 Bière, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"Maîtrise indiquée : Anatomie. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir de cidre de baies",category:"recipes",ingredients:"1 Cidre de Baies, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"Maîtrise indiquée : Anatomie. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir de cidre de myrtilles",category:"recipes",ingredients:"1 Cidre de Myrtille, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"Maîtrise indiquée : Anatomie. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir de cidre de pomme",category:"recipes",ingredients:"1 Cidre de Pomme, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"Maîtrise indiquée : Anatomie. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Alcool à partir de vin",category:"recipes",ingredients:"1 vin au choix, 2 Urne en Terre Cuite, 20 Combustible",station:"Cube à Distiller",obtaining:"La source indique « n’importe quel vin ». Maîtrise : Anatomie. Durée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration alimentaire I : salade de légumes bronze",category:"recipes",ingredients:"1 Salade de légumes (bronze), 1 Épices",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 6 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration alimentaire I : bol de choucroute bronze",category:"recipes",ingredients:"1 Bol de choucroute (bronze), 1 Épices",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 6 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration alimentaire II : salade de légumes argent",category:"recipes",ingredients:"1 Salade de légumes (argent), 1 Umami",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration alimentaire II : bol de choucroute argent",category:"recipes",ingredients:"1 Bol de choucroute (argent), 1 Umami",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 8 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration d’Histoire I",category:"recipes",ingredients:"2 Histoire (bronze)",station:"Bureau",obtaining:"Maîtrise indiquée : Écriture de livres. Durée affichée : 12 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration d’Histoire II",category:"recipes",ingredients:"2 Histoire (argent)",station:"Bureau",obtaining:"Maîtrise indiquée : Écriture de livres. Durée affichée : 16 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration de boisson I : jus de raisin bronze",category:"recipes",ingredients:"1 Jus de raisin (bronze), 1 Épices",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 6 ticks.",source:SOURCE_RECIPES},
+  {name:"Amélioration de boisson I : vin bronze",category:"recipes",ingredients:"1 Vin (bronze), 1 Épices",station:"Plan de Cuisine",obtaining:"Maîtrise indiquée : Agriculture. Durée affichée : 6 ticks.",source:SOURCE_RECIPES},
 
-  let state = loadState();
-  let activeCategory = "";
+  {name:"Bûche",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Minerai de Fer",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Lingot de Fer",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Clous en Fer",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Argile",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Charbon",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Sable",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Planche de Bois",category:"objects",ingredients:"À compléter depuis la fiche source.",station:"À vérifier",obtaining:"Fiche objet du catalogue communautaire.",source:SOURCE_ITEMS},
+  {name:"Aqua Vitae",category:"potions",ingredients:"Ingrédients à vérifier dans la fiche détaillée.",station:"À vérifier",obtaining:"Fiche repérée dans la catégorie Alchimie et potions. Ne pas considérer comme recette confirmée.",source:SOURCE_ITEMS},
+  {name:"Acide",category:"potions",ingredients:"Ingrédients à vérifier dans la fiche détaillée.",station:"À vérifier",obtaining:"Fiche repérée dans la catégorie Alchimie et potions.",source:SOURCE_ITEMS},
+  {name:"Alcali",category:"potions",ingredients:"Ingrédients à vérifier dans la fiche détaillée.",station:"À vérifier",obtaining:"Fiche repérée dans la catégorie Alchimie et potions.",source:SOURCE_ITEMS},
+  {name:"Alambic",category:"stations",ingredients:"Coûts de construction à vérifier dans la fiche détaillée.",station:"Atelier d’alchimie",obtaining:"Atelier répertorié dans le catalogue communautaire.",source:SOURCE_STATIONS},
+  {name:"Cube à Distiller",category:"stations",ingredients:"Coûts de construction à vérifier dans la fiche détaillée.",station:"Alchimie",obtaining:"Atelier répertorié dans le catalogue communautaire.",source:SOURCE_STATIONS},
+  {name:"Banc d’Assemblage I",category:"stations",ingredients:"Coûts de construction à vérifier dans la fiche détaillée.",station:"Artisanat et construction",obtaining:"Atelier répertorié dans le catalogue communautaire.",source:SOURCE_STATIONS}
+];
 
-  const $ = id => document.getElementById(id);
+const DEFAULT_GOALS = [
+  {id:"g1",text:"Vérifier les recettes utiles dans ma partie",done:false},
+  {id:"g2",text:"Documenter les matériaux importants",done:false},
+  {id:"g3",text:"Noter les technologies débloquées",done:false},
+  {id:"g4",text:"Tester les potions et noter leurs effets",done:false}
+];
 
-  function uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
-  }
+const $ = id => document.getElementById(id);
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function validUrl(s){try{const u=new URL(s);return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return""}}
+function categoryName(id){return CATEGORIES.find(c=>c.id===id)?.name||"Autres notes"}
+function categoryIcon(id){return CATEGORIES.find(c=>c.id===id)?.icon||"🕯️"}
+function statusLabel(s){return({todo:"À vérifier",community:"Source communautaire",official:"Source officielle",done:"Vérifié en jeu"})[s]||"À vérifier"}
+function statusClass(s){return s==="done"?"ok":s==="todo"?"warn":""}
 
-  function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    })[char]);
-  }
-
-  function safeUrl(value) {
-    try {
-      const url = new URL(value);
-      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
-    } catch {
-      return "";
-    }
-  }
-
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return {
-          entries: Array.isArray(parsed.entries) ? parsed.entries : [],
-          notes: Array.isArray(parsed.notes) ? parsed.notes : [],
-          goals: Array.isArray(parsed.goals) ? parsed.goals : DEFAULT_GOALS.map(g => ({ ...g }))
-        };
-      }
-    } catch (error) {
-      console.warn("Impossible de charger le Codex :", error);
-    }
-    return {
-      entries: [],
-      notes: [],
-      goals: DEFAULT_GOALS.map(g => ({ ...g }))
-    };
-  }
-
-  function saveState() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      renderStats();
-      return true;
-    } catch (error) {
-      alert("La sauvegarde a échoué. L'espace de stockage est peut-être indisponible.");
-      console.error(error);
-      return false;
-    }
-  }
-
-  function categoryName(id) {
-    return CATEGORIES.find(c => c.id === id)?.name || "Autres notes";
-  }
-
-  function categoryIcon(id) {
-    return CATEGORIES.find(c => c.id === id)?.icon || "🕯️";
-  }
-
-  function statusLabel(status) {
-    return ({
-      todo: "À vérifier",
-      community: "Source communautaire",
-      official: "Source officielle",
-      done: "Vérifié en jeu"
-    })[status] || "À vérifier";
-  }
-
-  function statusClass(status) {
-    if (status === "done") return "ok";
-    if (status === "todo") return "warn";
-    return "";
-  }
-
-  function navigate(page) {
-    document.querySelectorAll(".section").forEach(section => {
-      section.classList.toggle("active", section.id === page);
-    });
-    document.querySelectorAll(".bottom-nav button").forEach(button => {
-      button.classList.toggle("active", button.dataset.page === page);
-    });
-    if (page === "catalog") renderEntries();
-    if (page === "progress") renderGoals();
-    if (page === "notes") renderNotes();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function renderStats() {
-    $("statEntries").textContent = state.entries.length;
-    $("statDone").textContent = state.entries.filter(e => e.status === "done").length;
-    $("statNotes").textContent = state.notes.length;
-
-    const completed = state.entries.filter(e => e.completed).length;
-    const total = state.entries.length;
-    const percent = total ? Math.round(completed / total * 100) : 0;
-    $("progressBar").style.width = percent + "%";
-    $("progressText").textContent = total
-      ? `${completed} fiche(s) maîtrisée(s) sur ${total} · ${percent} %`
-      : "Ajoute des fiches pour commencer ton suivi.";
-    $("progressDetails").textContent =
-      `${completed} fiche(s) maîtrisée(s), ${state.entries.filter(e => e.status === "done").length} information(s) vérifiée(s) en jeu et ${state.goals.filter(g => g.done).length} objectif(s) terminé(s).`;
-  }
-
-  function renderCategories() {
-    $("categoryGrid").innerHTML = CATEGORIES.map(category => {
-      const count = state.entries.filter(e => e.category === category.id).length;
-      return `
-        <button class="category-card" data-category="${category.id}">
-          <span class="emoji">${category.icon}</span>
-          <strong>${escapeHTML(category.name)}</strong>
-          <small>${escapeHTML(category.description)}</small>
-          <span class="badge">${count} fiche(s) personnelle(s)</span>
-        </button>`;
-    }).join("");
-
-    $("filterCategory").innerHTML =
-      '<option value="">Toutes les catégories</option>' +
-      CATEGORIES.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("");
-
-    $("entryCategory").innerHTML = CATEGORIES.map(c =>
-      `<option value="${c.id}">${escapeHTML(c.name)}</option>`
-    ).join("");
-  }
-
-  function renderEntries() {
-    const query = $("searchInput").value.trim().toLocaleLowerCase("fr");
-    const category = activeCategory || $("filterCategory").value;
-    const status = $("filterStatus").value;
-
-    const entries = state.entries.filter(entry => {
-      const haystack = [
-        entry.name, entry.description, entry.ingredients,
-        entry.station, entry.obtaining, categoryName(entry.category)
-      ].join(" ").toLocaleLowerCase("fr");
-
-      return (!query || haystack.includes(query))
-        && (!category || entry.category === category)
-        && (!status || (status === "done" ? entry.completed : !entry.completed));
-    }).sort((a, b) => a.name.localeCompare(b.name, "fr"));
-
-    $("entryList").innerHTML = entries.length ? entries.map(entry => `
-      <article class="entry">
-        <div class="entry-top">
-          <div class="entry-main">
-            <h3>${categoryIcon(entry.category)} ${escapeHTML(entry.name)}</h3>
-            <span class="badge">${escapeHTML(categoryName(entry.category))}</span>
-            <span class="badge ${statusClass(entry.status)}">${escapeHTML(statusLabel(entry.status))}</span>
-            ${entry.completed ? '<span class="badge ok">Maîtrisé</span>' : ""}
-          </div>
-        </div>
-        ${entry.description ? `<p>${escapeHTML(entry.description)}</p>` : ""}
-        ${entry.ingredients ? `<p class="muted"><strong>Ingrédients / prérequis :</strong> ${escapeHTML(entry.ingredients)}</p>` : ""}
-        ${entry.station ? `<p class="muted"><strong>Atelier / lieu :</strong> ${escapeHTML(entry.station)}</p>` : ""}
-        <div class="entry-actions">
-          <button data-action="view" data-id="${entry.id}">Détails</button>
-          <button data-action="toggle" data-id="${entry.id}">${entry.completed ? "À refaire" : "✓ Maîtrisé"}</button>
-          <button data-action="edit" data-id="${entry.id}">Modifier</button>
-          <button class="danger" data-action="delete" data-id="${entry.id}">Supprimer</button>
-        </div>
-      </article>
-    `).join("") : `<div class="empty">Aucune fiche trouvée.<br>Ajoute tes premières informations avec « Nouvelle fiche ».</div>`;
-  }
-
-  function renderGoals() {
-    $("goalList").innerHTML = state.goals.length ? state.goals.map(goal => `
-      <div class="check-row">
-        <input type="checkbox" data-goal="${goal.id}" ${goal.done ? "checked" : ""} aria-label="Objectif terminé">
-        <div style="flex:1">
-          <span style="${goal.done ? "text-decoration:line-through;color:var(--muted)" : ""}">${escapeHTML(goal.text)}</span>
-        </div>
-        <button class="danger" data-delete-goal="${goal.id}" aria-label="Supprimer l'objectif">×</button>
-      </div>
-    `).join("") : '<p class="muted">Aucun objectif. Ajoute-en un ci-dessus.</p>';
-  }
-
-  function renderNotes() {
-    $("noteList").innerHTML = state.notes.length ? [...state.notes]
-      .sort((a, b) => b.updatedAt - a.updatedAt)
-      .map(note => `
-        <article class="entry">
-          <h3>${escapeHTML(note.title || "Note sans titre")}</h3>
-          <p class="muted">${new Date(note.updatedAt).toLocaleString("fr-FR")}</p>
-          <p style="white-space:pre-wrap">${escapeHTML(note.text)}</p>
-          <div class="entry-actions">
-            <button data-edit-note="${note.id}">Modifier</button>
-            <button class="danger" data-delete-note="${note.id}">Supprimer</button>
-          </div>
-        </article>
-      `).join("") : '<div class="empty">Ton carnet est vide. Note ici tes découvertes et tes essais.</div>';
-  }
-
-  function renderSources() {
-    $("sourceList").innerHTML = SOURCES.map(source => `
-      <article class="entry">
-        <h3>📖 ${escapeHTML(source.name)}</h3>
-        <p>${escapeHTML(source.description)}</p>
-        <a class="source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.url)} ↗</a>
-      </article>
-    `).join("");
-  }
-
-  function openEntry(entry = null) {
-    $("entryForm").reset();
-    $("entryId").value = entry?.id || "";
-    $("dialogTitle").textContent = entry ? "Modifier la fiche" : "Nouvelle fiche";
-
-    if (entry) {
-      $("entryName").value = entry.name || "";
-      $("entryCategory").value = entry.category || "other";
-      $("entryDescription").value = entry.description || "";
-      $("entryIngredients").value = entry.ingredients || "";
-      $("entryStation").value = entry.station || "";
-      $("entryObtaining").value = entry.obtaining || "";
-      $("entryStatus").value = entry.status || "todo";
-      $("entrySource").value = entry.source || "";
-      $("entryCompleted").checked = Boolean(entry.completed);
-    } else {
-      $("entryCategory").value = activeCategory || "objects";
-      $("entryStatus").value = "todo";
-    }
-    $("entryDialog").showModal();
-  }
-
-  function showDetails(id) {
-    const entry = state.entries.find(e => e.id === id);
-    if (!entry) return;
-
-    const source = safeUrl(entry.source);
-    $("detailContent").innerHTML = `
-      <h2>${categoryIcon(entry.category)} ${escapeHTML(entry.name)}</h2>
-      <span class="badge">${escapeHTML(categoryName(entry.category))}</span>
-      <span class="badge ${statusClass(entry.status)}">${escapeHTML(statusLabel(entry.status))}</span>
-      ${entry.completed ? '<span class="badge ok">Maîtrisé</span>' : ""}
-      <hr>
-      <h3>Description</h3>
-      <p>${escapeHTML(entry.description || "Pas encore renseignée.")}</p>
-      <h3>Ingrédients et prérequis</h3>
-      <p style="white-space:pre-wrap">${escapeHTML(entry.ingredients || "Pas encore renseignés.")}</p>
-      <h3>Atelier ou lieu</h3>
-      <p>${escapeHTML(entry.station || "Pas encore renseigné.")}</p>
-      <h3>Obtention et déblocage</h3>
-      <p style="white-space:pre-wrap">${escapeHTML(entry.obtaining || "Pas encore renseignés.")}</p>
-      <h3>Source</h3>
-      ${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source)} ↗</a>` : "<p>Aucune source renseignée.</p>"}
-    `;
-    $("detailDialog").showModal();
-  }
-
-  $("entryForm").addEventListener("submit", event => {
-    event.preventDefault();
-    const name = $("entryName").value.trim();
-    if (!name) return;
-
-    const sourceText = $("entrySource").value.trim();
-    if (sourceText && !safeUrl(sourceText)) {
-      alert("Le lien doit être une adresse HTTP ou HTTPS valide.");
-      return;
-    }
-
-    const id = $("entryId").value;
-    const old = state.entries.find(e => e.id === id);
-
-    const entry = {
-      id: id || uid(),
-      name,
-      category: $("entryCategory").value,
-      description: $("entryDescription").value.trim(),
-      ingredients: $("entryIngredients").value.trim(),
-      station: $("entryStation").value.trim(),
-      obtaining: $("entryObtaining").value.trim(),
-      status: $("entryStatus").value,
-      source: sourceText,
-      completed: $("entryCompleted").checked,
-      createdAt: old?.createdAt || Date.now(),
-      updatedAt: Date.now()
-    };
-
-    if (old) state.entries = state.entries.map(e => e.id === id ? entry : e);
-    else state.entries.push(entry);
-
-    saveState();
-    $("entryDialog").close();
-    renderCategories();
-    renderEntries();
-  });
-
-  $("newEntryBtn").addEventListener("click", () => openEntry());
-  $("cancelEntryBtn").addEventListener("click", () => $("entryDialog").close());
-  $("closeDetailBtn").addEventListener("click", () => $("detailDialog").close());
-  $("openCatalogBtn").addEventListener("click", () => navigate("catalog"));
-
-  $("entryList").addEventListener("click", event => {
-    const button = event.target.closest("button[data-action]");
-    if (!button) return;
-
-    const entry = state.entries.find(e => e.id === button.dataset.id);
-    if (!entry) return;
-
-    switch (button.dataset.action) {
-      case "view":
-        showDetails(entry.id);
-        break;
-      case "edit":
-        openEntry(entry);
-        break;
-      case "toggle":
-        entry.completed = !entry.completed;
-        saveState();
-        renderEntries();
-        break;
-      case "delete":
-        if (confirm(`Supprimer la fiche « ${entry.name} » ?`)) {
-          state.entries = state.entries.filter(e => e.id !== entry.id);
-          saveState();
-          renderCategories();
-          renderEntries();
-        }
-        break;
-    }
-  });
-
-  $("categoryGrid").addEventListener("click", event => {
-    const button = event.target.closest("[data-category]");
-    if (!button) return;
-    activeCategory = button.dataset.category;
-    $("filterCategory").value = activeCategory;
-    $("catalogTitle").textContent = categoryIcon(activeCategory) + " " + categoryName(activeCategory);
-    navigate("catalog");
-  });
-
-  $("searchInput").addEventListener("input", renderEntries);
-  $("filterCategory").addEventListener("change", () => {
-    activeCategory = $("filterCategory").value;
-    $("catalogTitle").textContent = activeCategory
-      ? categoryIcon(activeCategory) + " " + categoryName(activeCategory)
-      : "📚 Catalogue";
-    renderEntries();
-  });
-  $("filterStatus").addEventListener("change", renderEntries);
-
-  $("goalForm").addEventListener("submit", event => {
-    event.preventDefault();
-    const text = $("goalInput").value.trim();
-    if (!text) return;
-    state.goals.push({ id: uid(), text, done: false });
-    $("goalInput").value = "";
-    saveState();
-    renderGoals();
-  });
-
-  $("goalList").addEventListener("change", event => {
-    const checkbox = event.target.closest("[data-goal]");
-    if (!checkbox) return;
-    const goal = state.goals.find(g => g.id === checkbox.dataset.goal);
-    if (goal) {
-      goal.done = checkbox.checked;
-      saveState();
-      renderGoals();
-    }
-  });
-
-  $("goalList").addEventListener("click", event => {
-    const button = event.target.closest("[data-delete-goal]");
-    if (!button) return;
-    state.goals = state.goals.filter(g => g.id !== button.dataset.deleteGoal);
-    saveState();
-    renderGoals();
-  });
-
-  let editingNoteId = null;
-
-  $("saveNoteBtn").addEventListener("click", () => {
-    const title = $("noteTitle").value.trim();
-    const text = $("noteText").value.trim();
-    if (!title && !text) {
-      alert("Écris un titre ou un contenu avant d'enregistrer.");
-      return;
-    }
-
-    if (editingNoteId) {
-      const note = state.notes.find(n => n.id === editingNoteId);
-      if (note) Object.assign(note, { title, text, updatedAt: Date.now() });
-    } else {
-      state.notes.push({ id: uid(), title, text, updatedAt: Date.now() });
-    }
-
-    editingNoteId = null;
-    $("noteTitle").value = "";
-    $("noteText").value = "";
-    $("saveNoteBtn").textContent = "Enregistrer la note";
-    saveState();
-    renderNotes();
-  });
-
-  $("noteList").addEventListener("click", event => {
-    const edit = event.target.closest("[data-edit-note]");
-    const del = event.target.closest("[data-delete-note]");
-
-    if (edit) {
-      const note = state.notes.find(n => n.id === edit.dataset.editNote);
-      if (!note) return;
-      editingNoteId = note.id;
-      $("noteTitle").value = note.title;
-      $("noteText").value = note.text;
-      $("saveNoteBtn").textContent = "Enregistrer les modifications";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    if (del && confirm("Supprimer cette note ?")) {
-      state.notes = state.notes.filter(n => n.id !== del.dataset.deleteNote);
-      saveState();
-      renderNotes();
-    }
-  });
-
-  $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({
-      format: "codex-gardien",
-      version: 2,
-      exportedAt: new Date().toISOString(),
-      ...state
-    }, null, 2)], { type: "application/json" });
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "codex-du-gardien.json";
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-
-  $("importBtn").addEventListener("click", async () => {
-    const file = $("importFile").files[0];
-    if (!file) {
-      alert("Choisis d'abord un fichier JSON.");
-      return;
-    }
-    try {
-      const parsed = JSON.parse(await file.text());
-      if (!Array.isArray(parsed.entries) || !Array.isArray(parsed.notes) || !Array.isArray(parsed.goals)) {
-        throw new Error("Structure de fichier non reconnue.");
-      }
-      if (!confirm("Remplacer toutes les données actuelles par celles du fichier ?")) return;
-
-      state = {
-        entries: parsed.entries,
-        notes: parsed.notes,
-        goals: parsed.goals
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw){
+      const s=JSON.parse(raw);
+      return {
+        entries:Array.isArray(s.entries)?s.entries:[],
+        notes:Array.isArray(s.notes)?s.notes:[],
+        goals:Array.isArray(s.goals)?s.goals:DEFAULT_GOALS.map(x=>({...x}))
       };
-      saveState();
-      renderAll();
-      $("importFile").value = "";
-      alert("Import terminé.");
-    } catch (error) {
-      alert("Import impossible : le fichier n'est pas une sauvegarde valide du Codex.");
     }
-  });
+  }catch(e){console.warn(e)}
+  return {
+    entries:SEED.map((x,i)=>({...x,id:"seed-"+i,description:"Donnée issue d’un catalogue communautaire. Vérifie les détails en jeu avant de t’y fier.",status:"community",completed:false,createdAt:Date.now(),updatedAt:Date.now(),seed:true})),
+    notes:[],
+    goals:DEFAULT_GOALS.map(x=>({...x}))
+  };
+}
+let state=load();
+let activeCategory="";
+let editingNoteId=null;
 
-  $("resetBtn").addEventListener("click", () => {
-    if (!confirm("Effacer toutes les fiches, notes et objectifs de cet appareil ? Cette action est irréversible sans export.")) return;
-    state = {
-      entries: [],
-      notes: [],
-      goals: DEFAULT_GOALS.map(g => ({ ...g }))
-    };
-    saveState();
-    renderAll();
-    navigate("home");
-  });
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(state));renderStats();return true}
+  catch(e){alert("Sauvegarde impossible : espace local indisponible.");return false}
+}
+function renderStats(){
+  $("countEntries").textContent=state.entries.length;
+  $("countDone").textContent=state.entries.filter(x=>x.completed).length;
+  $("countNotes").textContent=state.notes.length;
+  const total=state.entries.length,done=state.entries.filter(x=>x.completed).length;
+  $("progressText").textContent=total?`${done} fiche(s) maîtrisée(s) sur ${total}.`:"Ajoute des fiches pour suivre ta progression.";
+  $("progressFill").style.width=(total?Math.round(done/total*100):0)+"%";
+  $("progressDetails").textContent=`${done} fiche(s) maîtrisée(s), ${state.entries.filter(x=>x.status==="done").length} fiche(s) vérifiée(s) en jeu et ${state.goals.filter(x=>x.done).length} objectif(s) terminé(s).`;
+}
+function renderCategories(){
+  $("categories").innerHTML=CATEGORIES.map(c=>`
+    <button class="category" data-cat="${c.id}">
+      <span class="emoji">${c.icon}</span><strong>${esc(c.name)}</strong>
+      <span class="muted">${state.entries.filter(e=>e.category===c.id).length} fiche(s) locale(s)</span>
+    </button>`).join("");
+  $("categoryFilter").innerHTML='<option value="">Toutes les catégories</option>'+CATEGORIES.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join("");
+  $("entryCategory").innerHTML=CATEGORIES.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join("");
+}
+function renderEntries(){
+  const q=$("search").value.trim().toLocaleLowerCase("fr");
+  const cat=activeCategory||$("categoryFilter").value;
+  const status=$("statusFilter").value;
+  const list=state.entries.filter(e=>{
+    const all=[e.name,e.description,e.ingredients,e.station,e.obtaining,categoryName(e.category)].join(" ").toLocaleLowerCase("fr");
+    return (!q||all.includes(q))&&(!cat||e.category===cat)&&(!status||e.status===status);
+  }).sort((a,b)=>a.name.localeCompare(b.name,"fr"));
+  $("catalogCount").textContent=`${list.length} fiche(s) affichée(s) sur ${state.entries.length}.`;
+  $("entries").innerHTML=list.length?list.map(e=>`
+    <article class="entry">
+      <h3>${categoryIcon(e.category)} ${esc(e.name)}</h3>
+      <span class="badge">${esc(categoryName(e.category))}</span>
+      <span class="badge ${statusClass(e.status)}">${esc(statusLabel(e.status))}</span>
+      ${e.completed?'<span class="badge ok">Maîtrisé</span>':""}
+      ${e.description?`<p>${esc(e.description)}</p>`:""}
+      ${e.ingredients?`<p class="muted"><strong>Ingrédients :</strong> ${esc(e.ingredients)}</p>`:""}
+      ${e.station?`<p class="muted"><strong>Atelier :</strong> ${esc(e.station)}</p>`:""}
+      ${e.obtaining?`<p class="muted"><strong>Détails :</strong> ${esc(e.obtaining)}</p>`:""}
+      ${validUrl(e.source)?`<p><a href="${esc(validUrl(e.source))}" target="_blank" rel="noopener">Consulter la source ↗</a></p>`:""}
+      <div class="actions">
+        <button data-edit="${e.id}">Modifier</button>
+        <button data-toggle="${e.id}">${e.completed?"Décocher":"✓ Maîtrisé"}</button>
+        <button class="danger" data-delete="${e.id}">Supprimer</button>
+      </div>
+    </article>`).join(""):'<div class="panel muted">Aucune fiche trouvée. Essaie un autre mot ou ajoute une fiche.</div>';
+}
+function renderGoals(){
+  $("goals").innerHTML=state.goals.length?state.goals.map(g=>`
+    <div class="check">
+      <input type="checkbox" data-goal="${g.id}" ${g.done?"checked":""}>
+      <div style="flex:1;${g.done?"text-decoration:line-through;color:var(--muted)":""}">${esc(g.text)}</div>
+      <button class="danger" data-delgoal="${g.id}">×</button>
+    </div>`).join(""):'<p class="muted">Aucun objectif.</p>';
+}
+function renderNotes(){
+  $("notesList").innerHTML=state.notes.length?[...state.notes].sort((a,b)=>b.updatedAt-a.updatedAt).map(n=>`
+    <article class="entry">
+      <h3>${esc(n.title||"Note sans titre")}</h3>
+      <p class="muted">${new Date(n.updatedAt).toLocaleString("fr-FR")}</p>
+      <p style="white-space:pre-wrap">${esc(n.text)}</p>
+      <div class="actions"><button data-editnote="${n.id}">Modifier</button><button class="danger" data-delnote="${n.id}">Supprimer</button></div>
+    </article>`).join(""):'<div class="panel muted">Ton carnet est vide.</div>';
+}
+function renderSources(){
+  $("sourceCards").innerHTML=SOURCES.map(s=>`
+    <article class="entry"><h3>📖 ${esc(s.name)}</h3><p>${esc(s.desc)}</p>
+      <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)} ↗</a>
+    </article>`).join("");
+}
+function renderAll(){renderCategories();renderEntries();renderGoals();renderNotes();renderSources();renderStats()}
 
-  document.querySelector(".bottom-nav").addEventListener("click", event => {
-    const button = event.target.closest("button[data-page]");
-    if (button) navigate(button.dataset.page);
-  });
+function navigate(page){
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===page));
+  document.querySelectorAll(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  if(page==="catalog")renderEntries();
+  if(page==="progress")renderGoals();
+  if(page==="notes")renderNotes();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelector(".bottom").addEventListener("click",e=>{
+  const b=e.target.closest("[data-page]");if(b)navigate(b.dataset.page);
+});
+$("categories").addEventListener("click",e=>{
+  const b=e.target.closest("[data-cat]");if(!b)return;
+  activeCategory=b.dataset.cat;$("categoryFilter").value=activeCategory;
+  $("catalogTitle").textContent=categoryIcon(activeCategory)+" "+categoryName(activeCategory);
+  navigate("catalog");
+});
+$("search").addEventListener("input",renderEntries);
+$("categoryFilter").addEventListener("change",()=>{
+  activeCategory=$("categoryFilter").value;
+  $("catalogTitle").textContent=activeCategory?categoryIcon(activeCategory)+" "+categoryName(activeCategory):"📚 Catalogue intégré";
+  renderEntries();
+});
+$("statusFilter").addEventListener("change",renderEntries);
+$("goCatalog").addEventListener("click",()=>navigate("catalog"));
 
-  function renderAll() {
-    renderCategories();
-    renderEntries();
-    renderGoals();
-    renderNotes();
-    renderSources();
-    renderStats();
+function openEntry(entry=null){
+  $("entryForm").reset();
+  $("entryId").value=entry?.id||"";
+  $("dialogTitle").textContent=entry?"Modifier la fiche":"Ajouter une fiche";
+  $("entryCategory").value=entry?.category||activeCategory||"objects";
+  $("entryName").value=entry?.name||"";
+  $("entryDescription").value=entry?.description||"";
+  $("entryIngredients").value=entry?.ingredients||"";
+  $("entryStation").value=entry?.station||"";
+  $("entryObtaining").value=entry?.obtaining||"";
+  $("entryStatus").value=entry?.status||"todo";
+  $("entrySource").value=entry?.source||"";
+  $("entryCompleted").checked=Boolean(entry?.completed);
+  $("editDialog").showModal();
+}
+$("addBtn").addEventListener("click",()=>openEntry());
+$("cancelEdit").addEventListener("click",()=>$("editDialog").close());
+
+$("entryForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("entryName").value.trim();
+  const source=$("entrySource").value.trim();
+  if(source&&!validUrl(source)){alert("Entre un lien HTTP ou HTTPS valide.");return}
+  const id=$("entryId").value;
+  const old=state.entries.find(x=>x.id===id);
+  const item={
+    id:id||uid(),name,category:$("entryCategory").value,
+    description:$("entryDescription").value.trim(),
+    ingredients:$("entryIngredients").value.trim(),
+    station:$("entryStation").value.trim(),
+    obtaining:$("entryObtaining").value.trim(),
+    status:$("entryStatus").value,source,
+    completed:$("entryCompleted").checked,
+    createdAt:old?.createdAt||Date.now(),updatedAt:Date.now(),seed:false
+  };
+  if(old)state.entries=state.entries.map(x=>x.id===id?item:x);
+  else state.entries.push(item);
+  if(save()){$("editDialog").close();renderAll()}
+});
+$("entries").addEventListener("click",e=>{
+  const edit=e.target.closest("[data-edit]");
+  const toggle=e.target.closest("[data-toggle]");
+  const del=e.target.closest("[data-delete]");
+  if(edit){const item=state.entries.find(x=>x.id===edit.dataset.edit);if(item)openEntry(item)}
+  if(toggle){const item=state.entries.find(x=>x.id===toggle.dataset.toggle);if(item){item.completed=!item.completed;save();renderAll()}}
+  if(del){
+    const item=state.entries.find(x=>x.id===del.dataset.delete);
+    if(item&&confirm(`Supprimer « ${item.name} » du Codex ?`)){
+      state.entries=state.entries.filter(x=>x.id!==item.id);save();renderAll();
+    }
   }
+});
+$("goalForm").addEventListener("submit",e=>{
+  e.preventDefault();const text=$("goalInput").value.trim();if(!text)return;
+  state.goals.push({id:uid(),text,done:false});$("goalInput").value="";save();renderGoals();
+});
+$("goals").addEventListener("change",e=>{
+  const input=e.target.closest("[data-goal]");if(!input)return;
+  const g=state.goals.find(x=>x.id===input.dataset.goal);
+  if(g){g.done=input.checked;save();renderGoals()}
+});
+$("goals").addEventListener("click",e=>{
+  const b=e.target.closest("[data-delgoal]");if(!b)return;
+  state.goals=state.goals.filter(x=>x.id!==b.dataset.delgoal);save();renderGoals();
+});
 
-  renderAll();
+function resetNoteForm(){
+  editingNoteId=null;$("noteTitle").value="";$("noteBody").value="";
+  $("saveNote").textContent="Enregistrer";$("cancelNote").hidden=true;
+}
+$("saveNote").addEventListener("click",()=>{
+  const title=$("noteTitle").value.trim(),text=$("noteBody").value.trim();
+  if(!title&&!text){alert("Écris un titre ou un contenu.");return}
+  if(editingNoteId){
+    const n=state.notes.find(x=>x.id===editingNoteId);
+    if(n)Object.assign(n,{title,text,updatedAt:Date.now()});
+  }else state.notes.push({id:uid(),title,text,updatedAt:Date.now()});
+  resetNoteForm();save();renderNotes();
+});
+$("cancelNote").addEventListener("click",resetNoteForm);
+$("notesList").addEventListener("click",e=>{
+  const edit=e.target.closest("[data-editnote]"),del=e.target.closest("[data-delnote]");
+  if(edit){
+    const n=state.notes.find(x=>x.id===edit.dataset.editnote);if(!n)return;
+    editingNoteId=n.id;$("noteTitle").value=n.title;$("noteBody").value=n.text;
+    $("saveNote").textContent="Enregistrer les modifications";$("cancelNote").hidden=false;
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  if(del&&confirm("Supprimer cette note ?")){
+    state.notes=state.notes.filter(x=>x.id!==del.dataset.delnote);save();renderNotes();
+  }
+});
+$("exportBtn").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify({format:"codex-gardien-gk2",version:3,exportedAt:new Date().toISOString(),...state},null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="codex-du-gardien.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+$("importBtn").addEventListener("click",async()=>{
+  const file=$("importFile").files[0];if(!file){alert("Choisis un fichier JSON.");return}
+  try{
+    const data=JSON.parse(await file.text());
+    if(!Array.isArray(data.entries)||!Array.isArray(data.notes)||!Array.isArray(data.goals))throw Error();
+    if(!confirm("Remplacer toutes les données actuelles ?"))return;
+    state={entries:data.entries,notes:data.notes,goals:data.goals};
+    if(save()){renderAll();$("importFile").value="";alert("Import terminé.")}
+  }catch{alert("Ce fichier n'est pas une sauvegarde valide du Codex.")}
+});
+$("resetBtn").addEventListener("click",()=>{
+  if(!confirm("Effacer toutes tes fiches, notes et objectifs ? Exporte d'abord une sauvegarde si nécessaire."))return;
+  state={entries:SEED.map((x,i)=>({...x,id:"seed-"+i,description:"Donnée issue d’un catalogue communautaire. Vérifie les détails en jeu avant de t’y fier.",status:"community",completed:false,createdAt:Date.now(),updatedAt:Date.now(),seed:true})),notes:[],goals:DEFAULT_GOALS.map(x=>({...x}))};
+  save();renderAll();navigate("home");
+});
+
+renderAll();
 })();
 </script>
 </body>
